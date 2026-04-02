@@ -120,7 +120,6 @@ const partners = [
     { logo: "img44.jpg", name: "", nameEn: "Partner 8", darkBg: false },
     { logo: "img47.jpg", name: "", nameEn: "Partner 9", darkBg: false },
     { logo: "img50.jpg", name: "", nameEn: "Partner 10", darkBg: false },
-    { logo: "img53.jpg", name: "", nameEn: "Partner 11", darkBg: false },
     { logo: "img56.jpg", name: "", nameEn: "Partner 12", darkBg: false },
     { logo: "img59.jpg", name: "", nameEn: "Partner 13", darkBg: false },
     { logo: "img60.png", name: "", nameEn: "Partner 14", darkBg: false },
