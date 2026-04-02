@@ -110,22 +110,22 @@ let projects = [
 
 // بيانات الشركاء بصيغة JPG
 const partners = [
-    { logo: "img23.jpg", name: "", nameEn: "Partner 1", darkBg: false },
-    { logo: "img26.jpg", name: "", nameEn: "Partner 2", darkBg: false },
-    { logo: "img29.jpg", name: "", nameEn: "Partner 3", darkBg: false },
-    { logo: "img32.jpg", name: "", nameEn: "Partner 4", darkBg: false },
-    { logo: "img35.jpg", name: "", nameEn: "Partner 5", darkBg: false },
-    { logo: "img38.jpg", name: "", nameEn: "Partner 6", darkBg: false },
-    { logo: "img41.jpg", name: "", nameEn: "Partner 7", darkBg: false },
-    { logo: "img44.jpg", name: "", nameEn: "Partner 8", darkBg: false },
-    { logo: "img47.jpg", name: "", nameEn: "Partner 9", darkBg: false },
-    { logo: "img50.jpg", name: "", nameEn: "Partner 10", darkBg: false },
-    { logo: "img56.jpg", name: "", nameEn: "Partner 12", darkBg: false },
-    { logo: "img59.jpg", name: "", nameEn: "Partner 13", darkBg: false },
-    { logo: "img60.png", name: "", nameEn: "Partner 14", darkBg: false },
-    { logo: "img61.png", name: "", nameEn: "Partner 15", darkBg: false },
-    { logo: "img62.png", name: "", nameEn: "Partner 16", darkBg: false },
-    { logo: "img63.png", name: "", nameEn: "Partner 17", darkBg: false }
+    { logo: "img23.jpg", name: "", nameEn: "", darkBg: false },
+    { logo: "img26.jpg", name: "", nameEn: "", darkBg: false },
+    { logo: "img29.jpg", name: "", nameEn: "", darkBg: false },
+    { logo: "img32.jpg", name: "", nameEn: "", darkBg: false },
+    { logo: "img35.jpg", name: "", nameEn: "", darkBg: false },
+    { logo: "img38.jpg", name: "", nameEn: "", darkBg: false },
+    { logo: "img41.jpg", name: "", nameEn: "", darkBg: false },
+    { logo: "img44.jpg", name: "", nameEn: "", darkBg: false },
+    { logo: "img47.jpg", name: "", nameEn: "", darkBg: false },
+    { logo: "img50.jpg", name: "", nameEn: "", darkBg: false },
+    { logo: "img56.jpg", name: "", nameEn: "", darkBg: false },
+    { logo: "img59.jpg", name: "", nameEn: "", darkBg: false },
+    { logo: "img60.png", name: "", nameEn: "", darkBg: false },
+    { logo: "img61.png", name: "", nameEn: "", darkBg: false },
+    { logo: "img62.png", name: "", nameEn: "", darkBg: false },
+    { logo: "img63.png", name: "", nameEn: "", darkBg: false }
 ];
 
 document.addEventListener('DOMContentLoaded', function() {
