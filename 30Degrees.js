@@ -122,11 +122,11 @@ const partners = [
     { logo: "img50.jpg", name: "", nameEn: "Partner 10", darkBg: false },
     { logo: "img53.jpg", name: "", nameEn: "Partner 11", darkBg: false },
     { logo: "img56.jpg", name: "", nameEn: "Partner 12", darkBg: false },
-    { logo: "img59.jpg", name: "", nameEn: "Partner 12", darkBg: false },
-    { logo: "img60.jpg", name: "", nameEn: "Partner 12", darkBg: false },
-    { logo: "img61.jpg", name: "", nameEn: "Partner 12", darkBg: false },
-    { logo: "img62.jpg", name: "", nameEn: "Partner 12", darkBg: false },
-    { logo: "img63.jpg", name: "", nameEn: "Partner 13", darkBg: false }
+    { logo: "img59.jpg", name: "", nameEn: "Partner 13", darkBg: false },
+    { logo: "img60.png", name: "", nameEn: "Partner 14", darkBg: false },
+    { logo: "img61.png", name: "", nameEn: "Partner 15", darkBg: false },
+    { logo: "img62.png", name: "", nameEn: "Partner 16", darkBg: false },
+    { logo: "img63.png", name: "", nameEn: "Partner 17", darkBg: false }
 ];
 
 document.addEventListener('DOMContentLoaded', function() {
