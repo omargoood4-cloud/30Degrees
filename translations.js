@@ -1,6 +1,6 @@
 const translations = {
     en: {
-        nav_logo: "30Degrees",
+      //nav_logo: "30Degrees",
         nav_home: "Home",
         nav_about: "About Us",
         nav_services: "Services",
@@ -111,7 +111,7 @@ const translations = {
         footer_copy2: "Copyright © 2026 All Rights Reserved"
     },
     ar: {
-        nav_logo: "ثلاثون درجة",
+      //nav_logo: "ثلاثون درجة",
         nav_home: "الرئيسية",
         nav_about: "من نحن",
         nav_services: "خدماتنا",
