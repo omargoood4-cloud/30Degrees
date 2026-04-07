@@ -68,7 +68,7 @@ const translations = {
         filter_hotel: "Hotels",
         view_more: "View More Projects",
         testi_title: "Testimonials",
-        testi_subtitle: "Our Clients' Opinions",
+        testi_subtitle: "",
        testi_1_text: "\"A well-organized place, very helpful, and honestly, the atmosphere is wonderful 🙏🏻🤎 … \"",
         testi_1_name: "Nada Ghaleb",
       //  testi_1_role: "Project Manager in a Commercial Company",
