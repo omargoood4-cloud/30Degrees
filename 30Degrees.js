@@ -554,7 +554,7 @@ function initializeContactForm() {
         
         try {
             const formData = new FormData(this);
-            // formData.append("access_key", "YOUR_ACCESS_KEY_HERE"); // Ensure the user replaces this in HTML
+            /formData.append("access_key", "ef905b9f-4b38-402a-ad6a-cee73a1459fd"); // Ensure the user replaces this in HTML
             
             const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
