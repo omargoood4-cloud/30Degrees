@@ -531,6 +531,12 @@ function initializeContactForm() {
     const contactForm = document.getElementById('contact-form');
     if (!contactForm) return;
     
+    // Set initial timestamp for Time Trap
+    const timestampInput = document.getElementById('form-timestamp');
+    if (timestampInput) {
+        timestampInput.value = Date.now();
+    }
+    
     contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
@@ -547,6 +553,49 @@ function initializeContactForm() {
 
         if (!isValid) {
             showNotification(lang === 'en' ? 'Please fill all required fields' : 'يرجى ملء جميع الحقول المطلوبة', 'error');
+            return;
+        }
+
+        // 1. Honeypot check (Bot detection)
+        const honeypot = this.querySelector('input[name="botcheck"]');
+        if (honeypot && honeypot.checked) {
+            showNotification(lang === 'en' ? 'Spam detected!' : 'تم اكتشاف نشاط مريب!', 'error');
+            return;
+        }
+
+        // 2. Time Trap check (minimum 3 seconds to submit)
+        const timeInput = this.querySelector('#form-timestamp');
+        if (timeInput && timeInput.value) {
+            const timeElapsed = Date.now() - parseInt(timeInput.value, 10);
+            if (timeElapsed < 3000) {
+                showNotification(lang === 'en' ? 'You are filling the form too quickly.' : 'أنت تقوم بملء النموذج بسرعة كبيرة (سلوك روبوت محتمل).', 'error');
+                return;
+            }
+        }
+
+        // 3. Rate Limiting (Prevent multiple submissions within 10 seconds)
+        const lastSubmitTime = localStorage.getItem('lastFormSubmitTime');
+        if (lastSubmitTime) {
+            const timeSinceLastSubmit = Date.now() - parseInt(lastSubmitTime, 10);
+            if (timeSinceLastSubmit < 10000) {
+                const remaining = Math.ceil((10000 - timeSinceLastSubmit) / 1000);
+                showNotification(lang === 'en' ? `Please wait ${remaining}s before sending again.` : `الرجاء الانتظار ${remaining} ثواني قبل المحاولة مرة أخرى.`, 'error');
+                return;
+            }
+        }
+
+        // 4. Advanced Validation (Email Format & Message Length)
+        const emailInput = this.querySelector('input[name="email"]');
+        if (emailInput && !validateEmail(emailInput.value)) {
+            showNotification(lang === 'en' ? 'Please enter a valid email address.' : 'الرجاء إدخال بريد إلكتروني صحيح.', 'error');
+            emailInput.focus();
+            return;
+        }
+
+        const messageInput = this.querySelector('textarea[name="message"]');
+        if (messageInput && messageInput.value.trim().length < 10) {
+            showNotification(lang === 'en' ? 'Message is too short, please provide more details.' : 'الرسالة قصيرة جداً، يرجى كتابة تفاصيل أوفى.', 'error');
+            messageInput.focus();
             return;
         }
         
@@ -566,6 +615,12 @@ function initializeContactForm() {
             if (data.success) {
                 showNotification(lang === 'en' ? 'Message sent successfully!' : 'تم إرسال رسالتك بنجاح! سنقوم بالرد عليك في أقرب وقت.', 'success');
                 this.reset();
+                
+                // Update rate limiting and time trap
+                localStorage.setItem('lastFormSubmitTime', Date.now());
+                if (timeInput) {
+                    timeInput.value = Date.now();
+                }
             } else {
                 showNotification(data.message || (lang === 'en' ? 'Something went wrong' : 'حدث خطأ ما'), 'error');
             }
