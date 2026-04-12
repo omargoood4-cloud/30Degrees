@@ -598,6 +598,12 @@ function initializeContactForm() {
             messageInput.focus();
             return;
         }
+
+        const recaptchaResponse = this.querySelector('.g-recaptcha-response');
+        if (recaptchaResponse && !recaptchaResponse.value) {
+            showNotification(lang === 'en' ? 'Please verify that you are not a robot' : 'يرجى تأكيد أنك لست روبوت عن طريق إكمال رمز التحقق (reCAPTCHA)', 'error');
+            return;
+        }
         
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
@@ -615,6 +621,10 @@ function initializeContactForm() {
             if (data.success) {
                 showNotification(lang === 'en' ? 'Message sent successfully!' : 'تم إرسال رسالتك بنجاح! سنقوم بالرد عليك في أقرب وقت.', 'success');
                 this.reset();
+                
+                if (typeof grecaptcha !== 'undefined') {
+                    grecaptcha.reset();
+                }
                 
                 // Update rate limiting and time trap
                 localStorage.setItem('lastFormSubmitTime', Date.now());
