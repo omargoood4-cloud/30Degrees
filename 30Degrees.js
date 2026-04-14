@@ -617,6 +617,10 @@ function initializeContactForm() {
         try {
             const formData = new FormData(this);
             
+            // نحذف الـ token من اللي يروح لـ Web3Forms (لأنه ميزة Pro عندهم)
+            // التحقق صار بالفعل عند Cloudflare من جهة العميل
+            formData.delete('cf-turnstile-response');
+            
             const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
                 body: formData
