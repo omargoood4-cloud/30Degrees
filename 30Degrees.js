@@ -605,24 +605,6 @@ function initializeContactForm() {
         try {
             const formData = new FormData(this);
             
-            // جلب توكن reCAPTCHA v2 Invisible
-            if (typeof grecaptcha !== 'undefined') {
-                try {
-                    const token = await new Promise((resolve) => {
-                        window.recaptchaCallback = function(t) {
-                            resolve(t);
-                        };
-                        grecaptcha.execute();
-                    });
-                    
-                    if (token) {
-                        formData.append('g-recaptcha-response', token);
-                    }
-                } catch (e) {
-                    console.error('reCAPTCHA error:', e);
-                }
-            }
-            
             const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
                 body: formData
