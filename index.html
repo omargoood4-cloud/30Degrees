@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Cloudflare Turnstile -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
@@ -458,9 +460,21 @@
                             rows="5" required></textarea>
                     </div>
 
-                    <!-- تم إزالة Google reCAPTCHA لأن Web3Forms يتطلب باقة Pro، وسيتم الاعتماد على نظام Botcheck المدمج والمجاني -->
+                    <!-- Cloudflare Turnstile Widget -->
+                    <div class="form-group turnstile-wrapper">
+                        <div class="cf-turnstile"
+                             data-sitekey="0x4AAAAAAC9er_OhWUaYSzGy"
+                             data-theme="light"
+                             data-language="ar"
+                             id="cf-turnstile-widget">
+                        </div>
+                        <p class="turnstile-note">
+                            <i class="fas fa-shield-alt"></i>
+                            محمي بواسطة Cloudflare Turnstile
+                        </p>
+                    </div>
 
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" id="contact-submit-btn">
                         <i class="fas fa-paper-plane"></i> <span data-i18n="contact_send">إرسال الرسالة</span>
                     </button>
                 </form>

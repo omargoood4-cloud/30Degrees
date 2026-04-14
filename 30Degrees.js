@@ -563,7 +563,19 @@ function initializeContactForm() {
             return;
         }
 
-        // 2. Time Trap check (minimum 3 seconds to submit)
+        // 2. Cloudflare Turnstile check
+        const turnstileResponse = this.querySelector('[name="cf-turnstile-response"]');
+        if (!turnstileResponse || !turnstileResponse.value) {
+            showNotification(
+                lang === 'en'
+                    ? 'Please complete the security verification (Cloudflare Turnstile).'
+                    : 'يرجى إكمال التحقق الأمني (Cloudflare Turnstile) أولاً.',
+                'error'
+            );
+            return;
+        }
+
+        // 3. Time Trap check (minimum 3 seconds to submit)
         const timeInput = this.querySelector('#form-timestamp');
         if (timeInput && timeInput.value) {
             const timeElapsed = Date.now() - parseInt(timeInput.value, 10);
@@ -573,7 +585,7 @@ function initializeContactForm() {
             }
         }
 
-        // 3. Rate Limiting (Prevent multiple submissions within 10 seconds)
+        // 4. Rate Limiting (Prevent multiple submissions within 10 seconds)
         const lastSubmitTime = localStorage.getItem('lastFormSubmitTime');
         if (lastSubmitTime) {
             const timeSinceLastSubmit = Date.now() - parseInt(lastSubmitTime, 10);
@@ -584,7 +596,7 @@ function initializeContactForm() {
             }
         }
 
-        // 4. Advanced Validation (Email Format & Message Length)
+        // 5. Advanced Validation (Email Format & Message Length)
         const emailInput = this.querySelector('input[name="email"]');
         if (emailInput && !validateEmail(emailInput.value)) {
             showNotification(lang === 'en' ? 'Please enter a valid email address.' : 'الرجاء إدخال بريد إلكتروني صحيح.', 'error');
@@ -615,9 +627,12 @@ function initializeContactForm() {
             if (data.success) {
                 showNotification(lang === 'en' ? 'Message sent successfully!' : 'تم إرسال رسالتك بنجاح! سنقوم بالرد عليك في أقرب وقت.', 'success');
                 this.reset();
-                
-                // لم نعد بحاجة إلى عمل reset مع v3 بنفس الطريقة
-                
+
+                // إعادة تهيئة Turnstile بعد الإرسال الناجح
+                if (typeof turnstile !== 'undefined') {
+                    turnstile.reset('#cf-turnstile-widget');
+                }
+
                 // Update rate limiting and time trap
                 localStorage.setItem('lastFormSubmitTime', Date.now());
                 if (timeInput) {
@@ -625,10 +640,17 @@ function initializeContactForm() {
                 }
             } else {
                 showNotification(data.message || (lang === 'en' ? 'Something went wrong' : 'حدث خطأ ما'), 'error');
+                // إعادة تهيئة Turnstile عند الفشل أيضاً
+                if (typeof turnstile !== 'undefined') {
+                    turnstile.reset('#cf-turnstile-widget');
+                }
             }
         } catch (error) {
             console.error('Error:', error);
             showNotification(lang === 'en' ? 'Could not connect to the server' : 'حدث مشكلة في الاتصال بالخادم', 'error');
+            if (typeof turnstile !== 'undefined') {
+                turnstile.reset('#cf-turnstile-widget');
+            }
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = originalBtnHTML;
