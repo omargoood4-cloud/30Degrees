@@ -599,17 +599,28 @@ function initializeContactForm() {
             return;
         }
 
-        const recaptchaResponse = this.querySelector('.g-recaptcha-response');
-        if (recaptchaResponse && !recaptchaResponse.value) {
-            showNotification(lang === 'en' ? 'Please verify that you are not a robot' : 'يرجى تأكيد أنك لست روبوت عن طريق إكمال رمز التحقق (reCAPTCHA)', 'error');
-            return;
-        }
-        
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
         
         try {
             const formData = new FormData(this);
+            
+            // جلب توكن reCAPTCHA v3
+            if (typeof grecaptcha !== 'undefined') {
+                try {
+                    const token = await new Promise(resolve => {
+                        grecaptcha.ready(async function() {
+                            const t = await grecaptcha.execute('6LdkvrMsAAAAAHupty1G2idJQMbKQU4T7EbUr4NS', {action: 'submit'});
+                            resolve(t);
+                        });
+                    });
+                    if (token) {
+                        formData.append('g-recaptcha-response', token);
+                    }
+                } catch (e) {
+                    console.error('reCAPTCHA error:', e);
+                }
+            }
             
             const response = await fetch("https://api.web3forms.com/submit", {
                 method: "POST",
@@ -622,9 +633,7 @@ function initializeContactForm() {
                 showNotification(lang === 'en' ? 'Message sent successfully!' : 'تم إرسال رسالتك بنجاح! سنقوم بالرد عليك في أقرب وقت.', 'success');
                 this.reset();
                 
-                if (typeof grecaptcha !== 'undefined') {
-                    grecaptcha.reset();
-                }
+                // لم نعد بحاجة إلى عمل reset مع v3 بنفس الطريقة
                 
                 // Update rate limiting and time trap
                 localStorage.setItem('lastFormSubmitTime', Date.now());
