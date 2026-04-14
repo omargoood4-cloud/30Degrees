@@ -563,9 +563,12 @@ function initializeContactForm() {
             return;
         }
 
-        // 2. Cloudflare Turnstile check
+        // 2. Cloudflare Turnstile check (فقط إذا الـ widget حمّل فعلاً)
+        const turnstileWidget = document.getElementById('cf-turnstile-widget');
+        const turnstileLoaded = turnstileWidget && turnstileWidget.querySelector('iframe');
         const turnstileResponse = this.querySelector('[name="cf-turnstile-response"]');
-        if (!turnstileResponse || !turnstileResponse.value) {
+
+        if (turnstileLoaded && (!turnstileResponse || !turnstileResponse.value)) {
             showNotification(
                 lang === 'en'
                     ? 'Please complete the security verification (Cloudflare Turnstile).'
