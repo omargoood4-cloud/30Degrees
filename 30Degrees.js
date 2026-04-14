@@ -605,15 +605,16 @@ function initializeContactForm() {
         try {
             const formData = new FormData(this);
             
-            // جلب توكن reCAPTCHA v3
+            // جلب توكن reCAPTCHA v2 Invisible
             if (typeof grecaptcha !== 'undefined') {
                 try {
-                    const token = await new Promise(resolve => {
-                        grecaptcha.ready(async function() {
-                            const t = await grecaptcha.execute('6LdkvrMsAAAAAHupty1G2idJQMbKQU4T7EbUr4NS', {action: 'submit'});
+                    const token = await new Promise((resolve) => {
+                        window.recaptchaCallback = function(t) {
                             resolve(t);
-                        });
+                        };
+                        grecaptcha.execute();
                     });
+                    
                     if (token) {
                         formData.append('g-recaptcha-response', token);
                     }

@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Ruqaa&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://www.google.com/recaptcha/api.js?render=6LdkvrMsAAAAAHupty1G2idJQMbKQU4T7EbUr4NS"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -459,8 +459,8 @@
                             rows="5" required></textarea>
                     </div>
 
-                    <div class="form-group" style="display:none;">
-                        <!-- تم إزالة reCAPTCHA v2 واستخدام v3 المخفي بدلاً منه -->
+                    <div class="form-group">
+                        <div id="recaptcha-container" class="g-recaptcha" data-sitekey="6LdqErcsAAAAADVyR6cYnyqrBCssBwQe2vEwKXTZ" data-size="invisible" data-callback="recaptchaCallback"></div>
                     </div>
 
                     <button type="submit" class="btn btn-primary">
